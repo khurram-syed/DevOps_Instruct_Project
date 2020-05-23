@@ -1,0 +1,19 @@
+---
+- hosts: ansible-host
+
+  tasks:
+
+  - name: Create Image
+    command: docker build -t webapp-image .
+    args:
+     chdir: /opt/docker
+
+  - name: Tag Image
+    command: docker tag webapp-image emailsyed244/webapp-image
+
+  - name: Push Image
+    command: docker push emailsyed244/webapp-image
+
+  - name: Remove Image
+    command: docker rmi emailsyed244/webapp-image
+    ignore_errors: yes

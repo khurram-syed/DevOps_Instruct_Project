@@ -1,0 +1,18 @@
+---
+- hosts: docker-host
+
+  tasks:
+  - name:  Stop and Remove container
+    command: docker rm -f  webapp-container
+    ignore_errors: yes
+
+  - name: Remove Image
+    command: docker rmi emailsyed244/webapp-image
+    ignore_errors: yes
+
+  - name: Pull Image
+    command: docker pull emailsyed244/webapp-image:latest
+    ignore_errors: yes
+
+  - name: Create Container
+    command: docker run -d --name webapp-container -p 8080:8080  emailsyed244/webapp-image:latest
